@@ -1,0 +1,14 @@
+li a{
+	color: white;
+}
+
+body{
+	background: white url("images/background.jpg") no-repeat right bottom;
+}
+.navbar{
+	border-radius: 0;
+}
+
+.navbar-brand{
+	font-family: 'Satisfy', cursive;
+}
