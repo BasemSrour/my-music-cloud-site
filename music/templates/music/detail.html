@@ -1,27 +1,68 @@
 {% extends 'music/base.html' %}
 {% block title %}Album details{% endblock %}
 
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+
 {% block body %}
+
 	<img src="{{ album.album_logo.url }}" alt="This the album logo icon", style="width:128px;height:128px;">
 
 	<h1 style="color: white;">{{ album.album_title }}</h1>
 	<h2 style="color: white;">{{ album.artist }} - {{ album.genre }}</h2>
 
-	{% if error_message %}
-		<p><strong>{{ error_message }}</strong></p>
-	{% endif %}
+		{% if album.song_set.all %}
+			<ul>
 
-	<form action="{% url 'music:favorite' album.id %}" method="post">
-		{% csrf_token %}
-		{% for song in album.song_set.all %}
-			<input type="radio" id="song{{ forloop.counter }}" name="song" value="{{ song.id }}" />
-			<label style="color: white;">
-				{{ song.song_title }} - {{ song.file_type }}
-				{% if song.is_favorite %}
-					<img src="http://i.imgur.com/b9b13Rd.png" />
-				{% endif %}
-			</label><br>
-		{% endfor %}
-		<input type="submit" name="Favorite / UnFavorite" value="Favorite / UnFavorite">
-	</form>
+				{% for song in album.song_set.all %}
+					
+					<li>
+						<a href="{% url 'music:song-details' song.id %}">
+							
+							<label style="color: white;">
+								{{ song.song_title }} - {{ song.file_type }}:
+								
+								<!-- Delete Song -->
+					            <form action="{% url 'music:delete-song' song.id %}" method="post" style="display: inline;">
+					                {% csrf_token %}
+					                <input type="hidden" name="song_id" value="{{ song.id }}" />
+					                <button type="submit" class="btn btn-default btn-sm">
+					                	<span class="glyphicon glyphicon-trash"></span>
+					                </button>
+								</form>
+								
+								<!-- Update Song -->
+								<a href="{% url 'music:update-song' song.id %}" class="btn btn-primary btn-sm" role="button">
+					            	Edit
+					            	<span class="glyphicon glyphicon-edit"></span>
+								</a>
+
+								<!-- Favorite Song -->
+				   				<a href="#" class="btn btn-default btn-sm btn-favorite" role="button">
+				                    <span class="glyphicon glyphicon-star"></span>
+								</a>
+					
+				       		</label><br>
+				       	</a>
+				    </li>
+				{% endfor %}
+				    
+			</ul>   		
+				
+		
+		{% else %}
+			<h3 style="color: white;">You don't have any songs</h3>
+		{% endif %}		
+
+
+	<!-- Add Song -->	    
+	<p>
+    	<a href="{% url 'music:add-song' %}" class="btn btn-success btn-lg">
+      		<span class="glyphicon glyphicon-plus"></span> Add Song
+    	</a>
+  	</p>
+
 {% endblock %}
