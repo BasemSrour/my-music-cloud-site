@@ -21,9 +21,11 @@
 					
 					<li>
 						<a href="{% url 'music:song-details' song.id %}">
-							
 							<label style="color: white;">
 								{{ song.song_title }} - {{ song.file_type }}:
+				       		</label>
+				       	</a>
+				       	<br>
 								
 								<!-- Delete Song -->
 					            <form action="{% url 'music:delete-song' song.id %}" method="post" style="display: inline;">
@@ -41,12 +43,10 @@
 								</a>
 
 								<!-- Favorite Song -->
-				   				<a href="#" class="btn btn-default btn-sm btn-favorite" role="button">
-				                    <span class="glyphicon glyphicon-star"></span>
+				                <a href="{% url 'music:favorite-song' song.id %}" class="btn btn-default btn-sm btn-favorite" role="button">
+				                	<span class="glyphicon glyphicon-star {% if song.is_favorite %}active{% endif %}"></span>
 								</a>
 					
-				       		</label><br>
-				       	</a>
 				    </li>
 				{% endfor %}
 				    

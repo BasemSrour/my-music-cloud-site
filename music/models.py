@@ -7,7 +7,7 @@ class Album(models.Model):
     album_title = models.CharField(max_length=500)
     genre = models.CharField(max_length=100)
     album_logo = models.ImageField(null=True)
-    # is_favorite = models.BooleanField(default=False)
+    is_favorite = models.BooleanField(default=False)
 
     def get_absolute_url(self):
         return reverse('music:detail', kwargs={'pk': self.pk})
