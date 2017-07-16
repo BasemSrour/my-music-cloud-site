@@ -1,9 +1,8 @@
 {% extends 'music/base.html' %}
 {% block title %}Album details{% endblock %}
+{% load static %}
 
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
 
@@ -37,14 +36,14 @@
 								</form>
 								
 								<!-- Update Song -->
-								<a href="{% url 'music:update-song' song.id %}" class="btn btn-primary btn-sm" role="button">
+								<a href="{% url 'music:update-song' song.id %}" cclass="btn btn-primary btn-sm" role="button">
 					            	Edit
 					            	<span class="glyphicon glyphicon-edit"></span>
 								</a>
 
 								<!-- Favorite Song -->
-				                <a href="{% url 'music:favorite-song' song.id %}" class="btn btn-default btn-sm btn-favorite" role="button">
-				                	<span class="glyphicon glyphicon-star {% if song.is_favorite %}active{% endif %}"></span>
+				                <button data-songid="{{song.id}}" class="btn btn-default btn-sm btn-favorite toggle_favorite" role="button">
+				                	<span id="fav_button-{{song.id}}" class="glyphicon glyphicon-star {% if song.is_favorite %}active{% endif %}"></span>
 								</a>
 					
 				    </li>
@@ -66,3 +65,7 @@
   	</p>
 
 {% endblock %}
+
+{% block footer_songs_js %}
+	<script src="{% static 'music/music-songs-ajax.js' %}"></script>
+{% endblock footer_songs_js %}

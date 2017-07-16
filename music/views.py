@@ -3,8 +3,8 @@ from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.core.urlresolvers import reverse_lazy
 from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login
-# from django.shortcuts import get_object_or_404
-# from django.http import HttpResponse
+from django.shortcuts import get_object_or_404
+from django.http import JsonResponse
 from django.views.generic import View
 from .models import Album, Song
 from .forms import UserForm
@@ -38,9 +38,15 @@ class AlbumDelete(DeleteView):
     success_url = reverse_lazy('music:index')
 
 
-class AlbumFavorite(UpdateView):
-    model = Album
-    fields = ['is_favorite']
+def favorite_album(request, album_id):
+    try:
+        album = get_object_or_404(Album, pk=album_id)
+        album.is_favorite = not album.is_favorite
+        album.save()
+    except (KeyError, Album.DoesNotExist):
+        return JsonResponse({'success': False})
+
+    return JsonResponse({'success': True})
 
 
 class SongDetailView(generic.DetailView):
@@ -68,9 +74,15 @@ class SongDelete(DeleteView):
     success_url = reverse_lazy('music:index')
 
 
-class SongFavorite(UpdateView):
-        model = Song
-        fields = ['is_favorite']
+def favorite_song(request, song_id):
+    try:
+        song = get_object_or_404(Song, pk=song_id)
+        song.is_favorite = not song.is_favorite
+        song.save()
+    except (KeyError, Song.DoesNotExist):
+        return JsonResponse({'success': False})
+
+    return JsonResponse({'success': True})
 
 
 class UserForm(View):

@@ -1,13 +1,10 @@
+{% load staticfiles %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
 	<meta charset="utf-8">
 	<title>{% block title %}My Music Cloud Website{% endblock %}</title>
 	<!-- Loads the path to your static files -->
-	{% load staticfiles %}
-	<script src="{% static "music/jquery.js" %}"></script>
-	<script src="{% static "music/music-ajax.js" %}"></script>
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
 	<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
 	<link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Satisfy" />
 	<link rel="stylesheet" type="text/css" href="{% static 'music/style.css' %}" />
@@ -69,6 +66,10 @@
 	</div>
 	</nav>
 {% block body %}
-{% endblock %}	
+{% endblock %}
+{% block footer_js %}
+{% endblock footer_js %}
+{% block footer_songs_js %}
+{% endblock footer_songs_js %}
 </body>
 </html>

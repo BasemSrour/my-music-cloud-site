@@ -1,4 +1,5 @@
 {% extends 'music/base.html' %}
+{% load static %}
 
 {% block body %}
 	{% if all_albums %}	
@@ -24,8 +25,8 @@
 						</a>
 
 						<!-- Favorite Album -->
-		                <a href="{% url 'music:favorite-album' album.id%}" class="btn btn-default btn-sm btn-favorite" role="button">
-		                	<span class="glyphicon glyphicon-star {% if album.is_favorite %}active{% endif %}"></span>
+		                <a href="#" data-albumid="{{album.id}}" class="btn btn-default btn-sm btn-favorite toggle_favorite" role="button">
+		                	<span id="fav_button-{{album.id}}" class="glyphicon glyphicon-star {% if album.is_favorite %}active{% endif %}"></span>
 						</a>
 						
 					</a>
@@ -36,3 +37,7 @@
 		<h3 style="color: white;">You don't have any albums</h3>
 	{% endif %}		                                                                                                   
 {% endblock %}
+
+{% block footer_js %}
+	<script src="{% static 'music/music-ajax.js' %}"></script>
+{% endblock footer_js %}

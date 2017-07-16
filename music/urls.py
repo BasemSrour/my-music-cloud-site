@@ -15,8 +15,8 @@ urlpatterns = [
 	# /music/album/<album.id>/
 	url(r'^album/(?P<pk>[0-9]+)/$', views.AlbumUpdate.as_view(), name='update-album'),
 	# /music/album/<album.id>/favorite
-	# url(r'^album/(?P<pk>[0-9]+)/favorite/$', views.favorite_album, name='favorite-album'),
-	url(r'^album/(?P<pk>[0-9]+)/favorite/$', views.AlbumFavorite.as_view(), name='favorite-album'),
+	url(r'^(?P<album_id>[0-9]+)/favorite_album/$', views.favorite_album, name='favorite-album'),
+	# url(r'^album/(?P<pk>[0-9]+)/favorite/$', views.AlbumFavorite.as_view(), name='favorite-album'),
 	# /music/album/<album.id>/delete/
 	url(r'^album/(?P<pk>[0-9]+)/delete/$', views.AlbumDelete.as_view(), name='delete-album'),
 	# /music/song/<song.id>/details/
@@ -28,5 +28,6 @@ urlpatterns = [
 	# /music/song/<song.id>/delete/
 	url(r'^(?P<pk>[0-9]+)/song/delete/$', views.SongDelete.as_view(), name='delete-song'),
 	# /music/song/<song.id>/favorite
-	url(r'^song/(?P<pk>[0-9]+)/favorite/$', views.SongFavorite.as_view(), name='favorite-song'),
+	# url(r'^song/(?P<pk>[0-9]+)/favorite/$', views.SongFavorite.as_view(), name='favorite-song'),
+	url(r'^(?P<song_id>[0-9]+)/favorite_song/$', views.favorite_song, name='favorite-song'),
 ]
